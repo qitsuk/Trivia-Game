@@ -20,6 +20,6 @@ const routes = [
 ]
 
 export default createRouter({
-    history: createWebHistory(),
+    history: createWebHistory(), //update with ternary op if hosting on gitlab pages
     routes
 })
