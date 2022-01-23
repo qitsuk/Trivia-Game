@@ -1,7 +1,31 @@
-# Vue 3 + Vite
+## Trivia game
+Trivia website written in Vue. Should include options to login/register a user, keep a personal highscore, and answer trivia questions in different categories.
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## TO DO
 
-## Recommended IDE Setup
+# Routing
+prevent non-programmatic routing to /questions and /results (is this called guarding routes?)
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+# vue x state management
+make the vue x store functional:
+    getters and setters for values in state, learn to make components send to and get data from vue x store
+
+# contact with user-api
+In ResultScreen:
+  post/patch username and highscore (if > previous highscore) after checking for correct answers
+
+(optional) In StartScreen:
+    post/patch username in order to display existing highscore in TriviaHeader while playing
+
+# contact with questions-api
+In StartScreen:
+    get available question categories, difficulties etc
+
+In QuestionScreen:
+    get question objects based on user input at startscreen.
+
+# component html and logic
+details in each component file
+
+# CSS
+optional styling of components if there is time
