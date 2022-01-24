@@ -7,21 +7,22 @@ import { ref } from 'vue';
 // has a ScoreAnswers component to show results
 
 // TEST VALUES FOR UPDATEHIGHSCORE, WILL LATER GET THESE FROM VUE X STORE
-const username = ref('user2')
-const highScore = ref(70)
+const username = ref('new')
+const highScore = ref(600)
 
 
 //checks if current user exists and then either POSTS or PATCHES 
+//rewrite, seems to POST no matter what
 const updateUserHighscore = async () => {
-  const checkUserExists = await apiUserGet(username.value, highScore.value)
+  const checkUserExists = await apiUserGet(username.value)
   if (checkUserExists.length > 0){
+    const data = await apiUserPost(username.value, highScore.value) 
+    console.log('data in resultscreen post', data)
+  } else {
     const userId = checkUserExists[0].id
     console.log('existing userid', userId)
     const data = await apiUserPatch(userId, highScore.value) 
-    console.log('data in resultscreen', data)
-  } else {
-    const data = await apiUserPost(username.value, highScore.value) 
-    console.log('data in resultscreen', data)
+    console.log('data in resultscreen patch', data)
   }
 }
 
