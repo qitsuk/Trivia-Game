@@ -1,8 +1,17 @@
 <script setup>
 import { ref } from "vue";
-import { apiUserSignin } from "../api/users";
+import { apiUserGet } from "../api/users";
 
-//IGNORE THE BUGGY ATTEMPT AT API CALL
+let username = ref("") //will refer to an input field
+let user = {}
+
+
+const getUser = async () => { 
+  const data = await apiUserGet(username.value) 
+  user = data
+  console.log(user)
+}
+
 
 //SETUP FOR A NEW GAME:
 // input field for username
