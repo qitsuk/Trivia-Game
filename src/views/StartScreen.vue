@@ -1,10 +1,8 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { apiUserGet } from "../api/users";
-
-
-
-
+const username = ref("") //will refer to an input field
+let user = {}
 
 
 //SETUP FOR A NEW GAME:
