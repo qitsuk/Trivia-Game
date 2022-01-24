@@ -2,15 +2,9 @@
 import { ref } from "vue";
 import { apiUserGet } from "../api/users";
 
-let username = ref("") //will refer to an input field
-let user = {}
 
 
-const getUser = async () => { 
-  const data = await apiUserGet(username.value) 
-  user = data
-  console.log(user)
-}
+
 
 
 //SETUP FOR A NEW GAME:
@@ -23,10 +17,12 @@ const userName = ref("");
 const difficulty = ref("");
 const numberOfQuestions = ref("");
 
-const onSignin = async () => {
-  const [error, userData] = await apiUserSignin(userName.value);
-  console.log(userData);
-};
+const getUser = async () => { 
+  const data = await apiUserGet(userName.value) 
+  user = data
+  console.log(user)
+}
+
 </script>
 
 <template>
