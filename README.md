@@ -15,7 +15,7 @@ In ResultScreen:
   post/patch username and highscore (if > previous highscore) after checking for correct answers
 
 (optional) In StartScreen:
-    post/patch username in order to display existing highscore in TriviaHeader while playing
+    get user in order to display existing highscore in TriviaHeader while playing
 
 # contact with questions-api
 In StartScreen:
