@@ -13,7 +13,7 @@
 
 </script>
 <template>
-    <h3>question and answer options component</h3>
+
    
 
 </template>
