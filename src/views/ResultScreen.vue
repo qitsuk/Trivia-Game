@@ -12,7 +12,7 @@ const highScore = ref(600)
 
 
 //checks if current user exists and then either POSTS or PATCHES 
-//rewrite, seems to POST no matter what
+//rewrite, seems to POST no matter what - note that this version is against the guidelines, they split out recording of user and highscore
 const updateUserHighscore = async () => {
   const checkUserExists = await apiUserGet(username.value)
   if (checkUserExists.length > 0){

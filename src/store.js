@@ -6,8 +6,8 @@ export default createStore({
             username: '',
             highScore: 0
         },
-        questions: []
-
+        questions: ['testq1', 'testq2'],
+        answers: []
     },
     actions: {
 
@@ -15,6 +15,24 @@ export default createStore({
     mutations: {
         setUser: (state, payload) => {
             state.user = payload
+        },
+        setQuestions: (state, payload) => {
+            state.questions = payload
+        },
+        addAnswer: (state, payload) => {
+            state.answers.push(payload)
+        }
+    },
+    getters: {
+        user: (state) => {
+            return state.user
+        },
+        questions: (state) => {
+            return state.questions
+        },
+        answers: (state) => {
+            return state.answers
         }
     }
+
 })
