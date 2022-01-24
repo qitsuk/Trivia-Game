@@ -5,11 +5,12 @@
 // return-button to go to startpage
 // displaying username (get from vuex store, requires no user-api call) 
 // and possibly displaying their highscore (needs user-api call)
-
+// <h2>Trivia header component</h2> <-- This goes in template but code goes apeshit if I try to comment it, with standard html comments.        
 </script>
 
 <template>
- <h2>Trivia header component</h2>
+
+
 
 </template>
 
