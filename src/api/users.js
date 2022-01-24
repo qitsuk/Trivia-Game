@@ -7,7 +7,7 @@ export async function apiUserGet(username){
       console.log(response.status)
     }
     const data = await response.json() 
-    return data //only getting "data" now unlike in movies video 004 because data becomes "undefined" when including error message
+    return data
   }
   catch(error)
   {
@@ -41,3 +41,25 @@ export async function apiUserPost(username, highScore){
   }
 }
 
+export async function apiUserPatch(userId, highScore){ 
+  try {
+    const config = {
+      method: "PATCH",
+      headers: {
+        "X-API-key": API_KEY,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+          highScore
+      })
+    }
+    const response = await fetch(`${BASE_API_URL}/trivia/${userId}`, config)
+    console.log("response", response)
+    const data = await response.json()
+    console.log('data in api file', data)
+    return data
+  }
+  catch(error){
+    return error.message
+  }
+}
