@@ -1,6 +1,7 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { apiUserGet } from "../api/users";
+import StartScreenForm from "../components/StartScreen/StartScreenForm.vue";
 const username = ref("") //will refer to an input field
 let user = {}
 
@@ -17,52 +18,15 @@ const numberOfQuestions = ref("");
 
 const getUser = async () => { 
   const data = await apiUserGet(userName.value) 
-  user = data
-  console.log(user)
+  user = data;
+  console.log(user);
 }
 
 </script>
 
 <template>
   <div class="centered">
-    <form>
-      <h1>Welcome to our Trivia Game</h1>
-      <fieldset>
-        <label for="username" class="label-style"
-          ><b>What is your username?</b></label
-        >
-        <br />
-        <input
-          type="text"
-          id="username"
-          placeholder="Your username here"
-          v-model.lazy="userName"
-        />
-        <br />
-        <label for="difficulty" class="label-style"
-          ><b>Choose your difficulty:</b></label
-        >
-        <br />
-        <select id="difficulty-select" v-model.lazy="difficulty">
-          <option disabled value="">Choose here</option>
-          <option value="easy">Easy</option>
-          <option value="normal">Normal</option>
-          <option value="hard">Hard</option>
-        </select>
-        <br />
-        <label for="numberOfQuestions" class="label-style"
-          ><b>How many questions would you like?</b></label
-        >
-        <br />
-        <input
-          type="number"
-          v-model.number.lazy="numberOfQuestions"
-          placeholder="Enter number of quesitons"
-        />
-        <br />
-        <button type="button">Start The Game!</button>
-      </fieldset>
-    </form>
+    <StartScreenForm />
   </div>
 </template>
 
@@ -73,8 +37,5 @@ const getUser = async () => {
   align-items: center;
   text-align: center;
   min-height: 100vh;
-}
-.label-style {
-  font-size: larger;
 }
 </style>

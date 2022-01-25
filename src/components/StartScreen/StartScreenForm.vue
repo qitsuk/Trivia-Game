@@ -1,0 +1,55 @@
+<script setup>
+import { getCategories } from '../../api/category';
+
+
+</script>
+
+<template>
+    <form>
+        <h1>Welcome to our Trivia Game</h1>
+        <fieldset>
+            <label for="username" class="label-style">
+                <b>What is your username?</b>
+            </label>
+            <br />
+            <input type="text" id="username" placeholder="Your username here" v-model="userName" />
+            <br />
+            <label for="difficulty" class="label-style">
+                <b>Choose your difficulty:</b>
+            </label>
+            <br />
+            <select id="difficulty-select" v-model="difficulty">
+                <option disabled value selected>Choose here</option>
+                <option value="easy">Easy</option>
+                <option value="normal">Normal</option>
+                <option value="hard">Hard</option>
+            </select>
+            <br />
+            <label for="category" class="label-style">
+                <b>Select a Category:</b>
+            </label>
+            <br />
+            <select id="category-select">
+                <option></option>
+            </select>
+            <br />
+            <label for="numberOfQuestions" class="label-style">
+                <b>How many questions would you like?</b>
+            </label>
+            <br />
+            <input
+                type="number"
+                v-model.number="numberOfQuestions"
+                placeholder="Enter number of quesitons"
+            />
+            <br />
+            <button type="button">Start The Game!</button>
+        </fieldset>
+    </form>
+</template>
+
+<style>
+.label-style {
+    font-size: larger;
+}
+</style>
