@@ -1,28 +1,30 @@
-
-
 <script setup>
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import { useStore } from 'vuex';
-import { onMounted } from 'vue'
 
-let newScore = 0
 const store = useStore()
+let newScore = 0
+const questionTitles = computed(() => store.getters.getQuestionTitles)
+const correctAnswers = computed(() => store.getters.getCorrectAnswers)
+const userAnswers = computed(() => store.getters.getUserAnswers)
+const results = {}
+for (let i = 0; i < userAnswers.value.length; i++){
+    results[i] = {
+        questionTitle : questionTitles.value[i],
+        userAnswer: userAnswers.value[i],
+        correctAnswer: correctAnswers.value[i]
+    }
+}
 
-const questions = computed(() => store.getters.getQuestions)
 
-
-
+//calculates user score, 100 points pr. correct answer
 const calculateScore = () => { //refactor into a vue x getter later
-    const correctAnswers = computed(() => store.getters.getCorrectAnswers)
-    const userAnswers = computed(() => store.getters.getUserAnswers)
+    
     for (let i = 0; i < userAnswers.value.length; i++){
         if (userAnswers.value[i] === correctAnswers.value[i]){
             newScore += 100
         }
     }
-    console.log('score', newScore)
-    console.log('correct answers', correctAnswers.value)
-    console.log('user answers', userAnswers.value)
 }
 
 
@@ -33,11 +35,20 @@ calculateScore()
 
 </script>
 <template>
-<h3>score and answers</h3>
+    <h3>Score</h3>
 
-<span
+    <p
     id="newScore"
-    v-bind="newScore">Your score: {{newScore}}</span>
+    v-bind="newScore">Your score: {{newScore}}</p>
+
+    <h3>Correct answers</h3>
+    <div v-for="result in results" :key="result"><b>{{result.questionTitle}}</b>
+    <ul>
+        <li>Your answer: {{result.userAnswer}}</li>
+        <li>Correct answer: {{result.correctAnswer}}</li>
+    </ul>
+    </div>
+
 
 </template>
 

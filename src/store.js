@@ -63,7 +63,10 @@ export default createStore({
             return state.user
         },
         getQuestions: (state) => {
-            return state.questions
+            return state.questions.map(question => question)
+        },
+        getQuestionTitles: (state) => {
+            return state.questions.map(question => question.question)
         },
         getUserAnswers: (state) => {
             return state.userAnswers.map(answer => answer)
