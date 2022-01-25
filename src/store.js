@@ -62,15 +62,20 @@ export default createStore({
         user: (state) => {
             return state.user
         },
-        questions: (state) => {
+        getQuestions: (state) => {
             return state.questions
         },
         answers: (state) => {
             return state.answers
         },
-        currentQuestion: (state) => (questionNumber) => {
-            return state.questions.value[questionNumber]
+        getCorrectAnswers: (state) => {
+            const correctAnswers = []
+            for (let question of state.questions){
+                correctAnswers.push(question.correct_answer)
+            }
+            return correctAnswers
         }
+        
     }
 
 })
