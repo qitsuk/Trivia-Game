@@ -24,7 +24,6 @@ export default createStore({
                 "incorrect_answers": ["My Hatred", "My Sadness", "My Desire"]
             }
         ],
-<<<<<<< HEAD
         answers: [],
         categories: [],
 
@@ -32,11 +31,9 @@ export default createStore({
         selectedCategory: {},
         selectedDifficulty: "",
         selectedNumberOfQuestions: "",
-
-=======
         userAnswers: [],
         categories: []
->>>>>>> d52eeff25bae18f5cb7d3f8a0cfdbc91e2685075
+
     },
     actions: {
         async fetchAllCategories() {

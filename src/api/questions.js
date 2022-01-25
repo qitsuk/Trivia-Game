@@ -8,3 +8,6 @@ const selectedCategory = computer(() => store.getters.getSelectedCategory);
 const numberOfQuestions = computed(() => store.getters.getSelectedNumberOfQuestions);
 
 
+const displayOutput = () => {
+    console.log("Difficulty: ", difficulty.value, "Category: ", selectedCategory.value, "Questions: ", numberOfQuestions);
+}
