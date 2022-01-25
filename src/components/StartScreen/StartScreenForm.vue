@@ -1,6 +1,15 @@
 <script setup>
 import { getCategories } from '../../api/category';
+import { useStore } from 'vuex';
+import { computed, onMounted } from 'vue';
+import store from '../../store';
 
+onMounted(() => {
+    store.dispatch("getAllCategories");
+});
+const categories = computed(() => store.state.categories);
+
+console.log(categories)
 
 </script>
 
