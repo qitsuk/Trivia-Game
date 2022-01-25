@@ -4,7 +4,6 @@ import { useStore } from 'vuex';
 import { computed, ref } from 'vue';
 import store from '../../store';
 import { useRouter } from 'vue-router';
-import {displayOutput} from '../../api/questions.js'
 
 const router = useRouter()
 const categoryNames = ref([]);
@@ -30,12 +29,17 @@ const onStartClick = () => {
     store.commit("setSelectedNumberOfQuestions", numberOfQuestions.value);
     store.commit("setUsername", username.value)
     router.push('questions')
-    console.log(displayOutput())
 };
+
+const testQuestionsApi = async () => {
+    await store.dispatch('getQuestions');
+    console.log('got questions')
+}
 </script>
 
 <template>
     <form>
+        <button @click="testQuestionsApi">TEST questions api</button>
         <h1>Welcome to our Trivia Game</h1>
         <fieldset>
             <label for="username" class="label-style">

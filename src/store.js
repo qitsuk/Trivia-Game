@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import { getCategories } from './api/category'
+import { getQuestions } from './api/questions';
 import { apiUserGet, apiUserPatch, apiUserPost } from './api/users';
 import { computed } from 'vue';
 
@@ -30,7 +31,7 @@ export default createStore({
         categories: [],
 
         // These are for generating the API link, getting the questions.
-        selectedCategory: {},
+        selectedCategory: '',
         selectedDifficulty: "",
         selectedNumberOfQuestions: "",
         userAnswers: [],
@@ -39,7 +40,18 @@ export default createStore({
     },
     actions: {
         async getQuestions() {
-
+            try {
+                const [error, questions] = await getQuestions();
+                console.log('in store', error, questions) // ISSUE: currently says " NetworkError when attempting to fetch resource." and null for questions
+                if (error !== null) {
+                    throw new Error(error);
+                }
+                this.commit("setQuestions", questions);
+                console.log(questions)
+                return null;
+            } catch (error) {
+                return error.message;
+            }
         },
         async fetchAllCategories() {
             try {
