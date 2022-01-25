@@ -25,7 +25,13 @@ export default createStore({
             }
         ],
         answers: [],
-        categories: []
+        categories: [],
+
+        // These are for generating the API link, getting the questions.
+        selectedCategory: {},
+        selectedDifficulty: "",
+        selectedNumberOfQuestions: "",
+
     },
     actions: {
         async fetchAllCategories() {
@@ -54,8 +60,16 @@ export default createStore({
             state.answers.push(payload);
         },
         setCategories: (state, payload) => {
-            // console.log("Payload", payload);
             state.categories = payload;
+        },
+        setSelectedCategory: (state, payload) => {
+            state.selectedCategory = payload;
+        },
+        setSelectedDifficulty: (state, payload) => {
+            state.selectedDifficulty = payload;
+        },
+        setSelectedNumberOfQuestions: (state, payload) => {
+            state.selectedNumberOfQuestions = payload;
         }
     },
     getters: {
@@ -75,9 +89,18 @@ export default createStore({
             }
             return correctAnswers
         },
-        getCategories: (state) => {
+        getAllCategories: (state) => {
             return state.categories;
-        }
+        },
+        getSelectedCategory: (state) => {
+            return state.selectedCategory;
+        },
+        getSelectedDifficulty: (state) => {
+            return state.selectedDifficulty;
+        },
+        getSelectedNumberOfQuestions: (state) => {
+            return state.selectedNumberOfQuestions
+        },
         
     }
 
