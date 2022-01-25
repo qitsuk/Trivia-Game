@@ -1,11 +1,14 @@
 import { createStore } from 'vuex'
 import { getCategories } from './api/category'
+import { apiUserGet, apiUserPatch, apiUserPost } from './api/users';
+import { computed } from 'vue';
 
 export default createStore({
     state: {
         user: {
-            username: '',
-            highScore: 0
+            username: 'newuser',
+            highScore: 900,
+            id: ''
         },
         questions: [ //NOTE these questions are test values to use until we can call the opentdb api
             {
@@ -35,10 +38,33 @@ export default createStore({
                     throw new Error(error);
                 }
                 this.commit("setCategories", categories);
-                // console.log(categories);
                 return null;
             } catch (error) {
                 return error.message;
+            }
+        },
+        async getUserFromApi({commit, state}){
+            try {
+                const foundUser = await apiUserGet(state.user.username);
+                return foundUser
+            } catch (error) {
+                return error.message
+            }
+        },
+        async postHighScoreToApi({commit, state}){
+            try {
+                const response = await apiUserPost(state.user.username, state.user.highScore)
+                return response
+            } catch (error) {
+                return error.message
+            }
+        },
+        async patchHighScoreToApi({commit, state}){
+            try {
+                const response = await apiUserPatch(state.user.id, state.user.highScore)
+                return response
+            } catch (error) {
+                return error.message
             }
         }
 
@@ -54,8 +80,10 @@ export default createStore({
             state.userAnswers.push(payload);
         },
         setCategories: (state, payload) => {
-            // console.log("Payload", payload);
             state.categories = payload;
+        },
+        setUserId: (state, payload) => {
+            state.user.id = payload;
         }
     },
     getters: {

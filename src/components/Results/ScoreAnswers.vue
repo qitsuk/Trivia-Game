@@ -17,12 +17,31 @@ for (let i = 0; i < userAnswers.value.length; i++){
 }
 
 
+let usersArray;
+
+//updates the user highscore in the API
+const updateHighScore = async () => {  //ISSUE: this code is fine, but get requests can only find default users dewaldels and gingerbread
+    usersArray = await store.dispatch("getUserFromApi");
+    console.log('users array', usersArray)
+    if (usersArray.length > 0){
+        let userId = usersArray[0].id
+        console.log(userId, 'exists')
+        store.commit('setUserId', userId)
+        const response = await store.dispatch('patchHighScoreToApi')
+        console.log('resp', response)
+     } else {
+        const response = await store.dispatch("postHighScoreToApi")
+         console.log('new user post resp', response)
+     }
+    }
+
+
 //calculates user score, 100 points pr. correct answer
 const calculateScore = () => { //refactor into a vue x getter later
     
     for (let i = 0; i < userAnswers.value.length; i++){
         if (userAnswers.value[i] === correctAnswers.value[i]){
-            newScore += 100
+            newScore += 10
         }
     }
 }
@@ -35,6 +54,7 @@ calculateScore()
 
 </script>
 <template>
+    <button @click="updateHighScore">test post</button>
     <h3>Score</h3>
 
     <p
