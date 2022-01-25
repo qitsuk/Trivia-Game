@@ -1,5 +1,5 @@
 <script setup>
-import {computed, ref, reactive} from 'vue'
+import { computed, ref, reactive } from 'vue'
 import Question from '../components/Question/Question.vue';
 import { useStore } from 'vuex';
 
@@ -20,20 +20,19 @@ const updatePageContent = () => {
   currentQuestion.value = questions.value[currentQuestionNumber.value] //probably cleaner to replace this with vue x getter that takes in an index as argument
   answerOptions = []
   answerOptions.push(currentQuestion.value.correct_answer)
-  for (let answerOption in currentQuestion.value.incorrect_answers){
-      answerOptions.push(currentQuestion.value.incorrect_answers[answerOption])
-     }
-  
+  for (let answerOption in currentQuestion.value.incorrect_answers) {
+    answerOptions.push(currentQuestion.value.incorrect_answers[answerOption]);
+  }
+  console.log(answerOptions);
 }
 
 updatePageContent(0)
 
 //handler for the nextquestion button
 const nextQuestion = () => {
-  store.commit('addAnswer', answer.value)
-  currentQuestionNumber.value += 1
-  updatePageContent()
-
+  store.commit('addAnswer', answer.value);
+  currentQuestionNumber.value += 1;
+  updatePageContent();
 }
 
 </script>
@@ -41,19 +40,17 @@ const nextQuestion = () => {
 <template>
   <h1>question screen!</h1>
 
-<p>{{currentQuestion.question}}</p> 
+  <p>{{ currentQuestion.question }}</p>
 
   <select v-model="answer">
-    <option disabled value="">Choose an answer</option>
-    <option v-for="answerOption in answerOptions" :key="answerOption">{{answerOption}}</option>
+    <option disabled value>Choose an answer</option>
+    <option v-for="answerOption in answerOptions" :key="answerOption">{{ answerOption }}</option>
   </select>
 
   <button id="nextQuestion" @click="nextQuestion">Next question</button>
-    
-  <button style="visibility:hidden">Check answers</button>
 
+  <button style="visibility:hidden">Check answers</button>
 </template>
 
 <style scoped>
-
 </style>
