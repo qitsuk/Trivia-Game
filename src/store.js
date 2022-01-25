@@ -24,6 +24,7 @@ export default createStore({
                 "incorrect_answers": ["My Hatred", "My Sadness", "My Desire"]
             }
         ],
+<<<<<<< HEAD
         answers: [],
         categories: [],
 
@@ -32,6 +33,10 @@ export default createStore({
         selectedDifficulty: "",
         selectedNumberOfQuestions: "",
 
+=======
+        userAnswers: [],
+        categories: []
+>>>>>>> d52eeff25bae18f5cb7d3f8a0cfdbc91e2685075
     },
     actions: {
         async fetchAllCategories() {
@@ -57,7 +62,7 @@ export default createStore({
             state.questions = payload;
         },
         addAnswer: (state, payload) => {
-            state.answers.push(payload);
+            state.userAnswers.push(payload);
         },
         setCategories: (state, payload) => {
             state.categories = payload;
@@ -73,14 +78,20 @@ export default createStore({
         }
     },
     getters: {
-        user: (state) => {
+        getUser: (state) => {
             return state.user
         },
         getQuestions: (state) => {
-            return state.questions
+            return state.questions.map(question => question)
         },
-        answers: (state) => {
-            return state.answers
+        getQuestionTitles: (state) => {
+            return state.questions.map(question => question.question)
+        },
+        getUserAnswers: (state) => {
+            return state.userAnswers.map(answer => answer)
+        },
+        getCategories: (state) => {
+            return state.categories;
         },
         getCorrectAnswers: (state) => {
             const correctAnswers = []
@@ -103,5 +114,4 @@ export default createStore({
         },
         
     }
-
 })

@@ -9,7 +9,7 @@ import { onMounted } from 'vue';
 //current version ignores the Question component, might reintroduce it later
 const router = useRouter()
 const store = useStore()
-const userAnswers = computed(() => store.state.answers)
+const userAnswers = computed(() => store.state.UserAnswers)
 const questions = computed(() => store.state.questions)
 
 let answer = ref('')
@@ -34,15 +34,15 @@ const nextQuestionButton = () => {
   }
 }
 
+  //NOTE remember to randomize the order of answerOptions array https://dev.to/codebubb/how-to-shuffle-an-array-in-javascript-2ikj
+
 //gets a new question and loads its answer options to be shown on the page
 const updateQuestionAndAnswers = () => {
   currentQuestion.value = questions.value[currentQuestionNumber.value] //probably cleaner to replace this with vue x getter that takes in an index as argument
-  console.log('assigned new que of' + currentQuestion.value.question)
   answerOptions.push(currentQuestion.value.correct_answer)
   for (let answerOption in currentQuestion.value.incorrect_answers) {
     answerOptions.push(currentQuestion.value.incorrect_answers[answerOption]);
   }
-  console.log(answerOptions);
 }
 
 onMounted(() => {
