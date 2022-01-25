@@ -6,15 +6,27 @@ import store from '../../store';
 
 const categoryNames = ref([]);
 
+const username = ref("");
+const difficulty = ref("");
+const selectedCategory = ref("");
+const numberOfQuestions = ref(0);
+
 const loadCategories = async () => {
     await store.dispatch("fetchAllCategories");
-    const categories = computed(() => store.getters.getCategories);
+    const categories = computed(() => store.getters.getAllCategories);
     for (let category of categories.value) {
         categoryNames.value.push(category.name);
     }
-    console.log(categoryNames);
+    categoryNames.value.sort();
 }
 loadCategories();
+
+const onStartClick = () => {
+    // store.commit("username")
+    store.commit("setSelectedCategory", selectedCategory.value);
+    store.commit("setSelectedDifficulty", difficulty.value);
+    store.commit("setSelectedNumberOfQuestions", numberOfQuestions.value);
+};
 </script>
 
 <template>
@@ -25,7 +37,7 @@ loadCategories();
                 <b>What is your username?</b>
             </label>
             <br />
-            <input type="text" id="username" placeholder="Your username here" v-model="userName" />
+            <input type="text" id="username" placeholder="Your username here" v-model="username" />
             <br />
             <label for="difficulty" class="label-style">
                 <b>Choose your difficulty:</b>
@@ -42,8 +54,13 @@ loadCategories();
                 <b>Select a Category:</b>
             </label>
             <br />
-            <select id="category-select">
-                <option v-for="category of categoryNames" :key="category">{{category}}</option>
+            <select id="category-select" v-model="selectedCategory">
+                <option id="allCategories" value="">Questions from ALL Categories</option>
+                <option
+                    v-for="category of categoryNames"
+                    :key="category"
+                    :value="{ text: category }"
+                >{{ category }}</option>
             </select>
             <br />
             <label for="numberOfQuestions" class="label-style">
@@ -56,7 +73,7 @@ loadCategories();
                 placeholder="Enter number of quesitons"
             />
             <br />
-            <button type="button">Start The Game!</button>
+            <button type="button" @click="onStartClick">Start The Game!</button>
         </fieldset>
     </form>
 </template>
