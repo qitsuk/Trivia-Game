@@ -3,7 +3,10 @@ import { getCategories } from '../../api/category';
 import { useStore } from 'vuex';
 import { computed, ref } from 'vue';
 import store from '../../store';
+import { useRouter } from 'vue-router';
+import {displayOutput} from '../../api/questions.js'
 
+const router = useRouter()
 const categoryNames = ref([]);
 
 const username = ref("");
@@ -22,10 +25,12 @@ const loadCategories = async () => {
 loadCategories();
 
 const onStartClick = () => {
-    // store.commit("username")
     store.commit("setSelectedCategory", selectedCategory.value);
     store.commit("setSelectedDifficulty", difficulty.value);
     store.commit("setSelectedNumberOfQuestions", numberOfQuestions.value);
+    store.commit("setUsername", username.value)
+    router.push('questions')
+    console.log(displayOutput())
 };
 </script>
 

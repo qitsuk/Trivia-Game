@@ -6,8 +6,8 @@ import { computed } from 'vue';
 export default createStore({
     state: {
         user: {
-            username: 'newuser',
-            highScore: 900,
+            username: '',
+            highScore: 0,
             id: ''
         },
         questions: [ //NOTE these questions are test values to use until we can call the opentdb api
@@ -27,7 +27,6 @@ export default createStore({
                 "incorrect_answers": ["My Hatred", "My Sadness", "My Desire"]
             }
         ],
-        answers: [],
         categories: [],
 
         // These are for generating the API link, getting the questions.
@@ -39,6 +38,9 @@ export default createStore({
 
     },
     actions: {
+        async getQuestions() {
+
+        },
         async fetchAllCategories() {
             try {
                 const [error, categories] = await getCategories();
@@ -81,6 +83,12 @@ export default createStore({
         setUser: (state, payload) => {
             state.user = payload;
         },
+        setUsername: (state, payload) => {
+            state.user.username = payload;
+        },
+        setHighScore: (state, payload) => {
+            state.user.highScore = payload;
+        },
         setQuestions: (state, payload) => {
             state.questions = payload;
         },
@@ -106,6 +114,9 @@ export default createStore({
     getters: {
         getUser: (state) => {
             return state.user
+        },
+        getHighScore: (state) => {
+            return state.user.highScore
         },
         getQuestions: (state) => {
             return state.questions.map(question => question)
