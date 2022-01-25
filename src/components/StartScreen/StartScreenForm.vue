@@ -24,7 +24,6 @@ const loadCategories = async () => {
         categoryNames.value.push(categoryObj);
     }
     categoryNames.value.sort();
-    console.log(categoryNames.value);
 }
 loadCategories();
 
@@ -38,15 +37,15 @@ const onStartClick = () => {
     router.push('questions')
 };
 
-const testQuestionsApi = async () => {
-    await store.dispatch('getQuestions');
-    console.log('got questions')
-}
+// const testQuestionsApi = async () => {
+//     await store.dispatch('getQuestions');
+//     console.log('got questions');
+// }
 </script>
 
 <template>
     <form>
-        <button @click="testQuestionsApi">TEST questions api</button>
+        <!-- <button @click="testQuestionsApi">TEST questions api</button> -->
         <h1>Welcome to our Trivia Game</h1>
         <fieldset>
             <label for="username" class="label-style">
@@ -62,7 +61,7 @@ const testQuestionsApi = async () => {
             <select id="difficulty-select" v-model="difficulty">
                 <option disabled value selected>Choose here</option>
                 <option value="easy">Easy</option>
-                <option value="normal">Normal</option>
+                <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
             </select>
             <br />

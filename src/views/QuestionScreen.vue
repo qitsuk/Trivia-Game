@@ -20,21 +20,21 @@ let finishedLastQuestion = ref(false)
 
 //handler for the nextquestion button
 const nextQuestionButton = () => {
-  if (!answer.value){
+  if (!answer.value) {
     return
   }
   store.commit('addAnswer', answer.value);
   answer.value = ''
   answerOptions.splice(0, answerOptions.length)
   currentQuestionNumber.value += 1;
-  if (questions.value[currentQuestionNumber.value] === undefined){
+  if (questions.value[currentQuestionNumber.value] === undefined) {
     router.push('results')
   } else {
     updateQuestionAndAnswers();
   }
 }
 
-  //NOTE remember to randomize the order of answerOptions array https://dev.to/codebubb/how-to-shuffle-an-array-in-javascript-2ikj
+//NOTE remember to randomize the order of answerOptions array https://dev.to/codebubb/how-to-shuffle-an-array-in-javascript-2ikj
 
 //gets a new question and loads its answer options to be shown on the page
 const updateQuestionAndAnswers = () => {
@@ -47,7 +47,7 @@ const updateQuestionAndAnswers = () => {
 
 onMounted(() => {
   updateQuestionAndAnswers()
-})
+});
 
 
 </script>
@@ -61,9 +61,7 @@ onMounted(() => {
     <option v-for="answerOption in answerOptions" :key="answerOption">{{ answerOption }}</option>
   </select>
 
-  <button id="nextQuestion" 
-  @click="nextQuestionButton"
-  >Next question</button>
+  <button id="nextQuestion" @click="nextQuestionButton">Next question</button>
 
   <Question></Question>
 </template>

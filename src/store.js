@@ -4,6 +4,23 @@ import { getQuestions } from './api/questions';
 import { apiUserGet, apiUserPatch, apiUserPost } from './api/users';
 import { computed } from 'vue';
 
+//NOTE these questions are test values to use until we can call the opentdb api
+            // {
+            //     "category": "Entertainment: Books",
+            //     "type": "multiple",
+            //     "difficulty": "medium",
+            //     "question": "Which of the following authors was not born in England? ",
+            //     "correct_answer": "Arthur Conan Doyle",
+            //     "incorrect_answers": ["Graham Greene", "H G Wells", "Arthur C Clarke"]
+            // }, {
+            //     "category": "Entertainment: Books",
+            //     "type": "multiple",
+            //     "difficulty": "medium",
+            //     "question": "The title of Adolf Hitler&#039;s autobiography &quot;Mein Kampf&quot; is what when translated to English?",
+            //     "correct_answer": "My Struggle",
+            //     "incorrect_answers": ["My Hatred", "My Sadness", "My Desire"]
+            // }
+
 export default createStore({
     state: {
         user: {
@@ -11,23 +28,7 @@ export default createStore({
             highScore: 0,
             id: ''
         },
-        questions: [ //NOTE these questions are test values to use until we can call the opentdb api
-            {
-                "category": "Entertainment: Books",
-                "type": "multiple",
-                "difficulty": "medium",
-                "question": "Which of the following authors was not born in England? ",
-                "correct_answer": "Arthur Conan Doyle",
-                "incorrect_answers": ["Graham Greene", "H G Wells", "Arthur C Clarke"]
-            }, {
-                "category": "Entertainment: Books",
-                "type": "multiple",
-                "difficulty": "medium",
-                "question": "The title of Adolf Hitler&#039;s autobiography &quot;Mein Kampf&quot; is what when translated to English?",
-                "correct_answer": "My Struggle",
-                "incorrect_answers": ["My Hatred", "My Sadness", "My Desire"]
-            }
-        ],
+        questions: [],
         categories: [],
 
         // These are for generating the API link, getting the questions.
@@ -42,12 +43,11 @@ export default createStore({
         async getQuestions() {
             try {
                 const [error, questions] = await getQuestions();
-                console.log('in store', error, questions) // ISSUE: currently says " NetworkError when attempting to fetch resource." and null for questions
                 if (error !== null) {
                     throw new Error(error);
                 }
-                this.commit("setQuestions", questions);
-                console.log(questions)
+                this.commit("setQuestions", questions.results);
+                console.log("Questions??", questions.results);
                 return null;
             } catch (error) {
                 return error.message;

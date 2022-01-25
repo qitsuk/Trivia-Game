@@ -7,17 +7,21 @@ const selectedDifficulty = computed(() => store.getters.getSelectedDifficulty);
 const selectedCategory = computed(() => store.getters.getSelectedCategory);
 const numberOfQuestions = computed(() => store.getters.getSelectedNumberOfQuestions);
 
+export const buildAPIURL = () => {
+    const difficulty = selectedDifficulty.value;
+    const numOfQuestions = numberOfQuestions.value;
+    const category = JSON.parse(JSON.stringify(selectedCategory.value));
+    const categoryID = category.category.id;
+    return `${BASE_TRIVIA_API_URL}.php?amount=${numOfQuestions}&category=${categoryID}&difficulty=${difficulty}`; 
+}
 
-export const displayOutput = () => {
-    console.log("Difficulty: ", selectedDifficulty.value, "Category: ", selectedCategory.value.text, "nr of questions: ", numberOfQuestions.value);
-} //ISSUE selectedcategory has no .id due to conversion in startscreenform to objects without id
 
 export async function getQuestions() {
     try {
-        const response = await fetch(`${BASE_TRIVIA_API_URL}.php`);
-        const { trivia_questions, error = "Something went wrong" } = await response.json();
+        const response = await fetch(buildAPIURL());
+        const result = await response.json();
         if (response.ok) {
-            return [null, trivia_questions];
+            return [null, result];
         } else {
             throw new Error(error);
         }
@@ -26,3 +30,8 @@ export async function getQuestions() {
     }
 }
 // https://opentdb.com/api.php?amount=10&category=9&difficulty=easy
+
+
+// https://opentdb.com/api.php?amount=12&category=12&difficulty=normal
+
+// https://opentdb.com/api.php?amount=10&category=11&difficulty=medium
