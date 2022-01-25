@@ -41,7 +41,7 @@ const nextQuestion = () => {
 <template>
   <h1>question screen!</h1>
 
-  <!-- <p>{{currentQuestion.question}}</p> FIX THE RENDERING OF THIS WITH CONDITIONAL RENDERING, AND THEN SOME LIFECYCLE HOOK STUFF FOR RE-RENDERING AFTER "NEXTQUESTION" BUTTON --> 
+  <p>{{currentQuestion.question}}</p> FIX THE RENDERING OF THIS WITH CONDITIONAL RENDERING, AND THEN SOME LIFECYCLE HOOK STUFF FOR RE-RENDERING AFTER "NEXTQUESTION" BUTTON 
 
   <select v-model="answer">
     <option disabled value="">Choose an answer</option>
