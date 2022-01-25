@@ -2,9 +2,11 @@
 import { useStore } from 'vuex';
 import { computed, ref } from 'vue';
 import store from '../../store';
+import { useRouter } from 'vue-router';
 
 const emit = defineEmits(["onStartClicked"]);
 
+const router = useRouter()
 const categoryNames = ref([]);
 
 const username = ref("");
@@ -27,17 +29,24 @@ const loadCategories = async () => {
 loadCategories();
 
 const onStartClick = () => {
-    // store.commit("username")
     store.commit("setSelectedCategory", selectedCategory.value);
     store.commit("setSelectedDifficulty", difficulty.value);
     store.commit("setSelectedNumberOfQuestions", numberOfQuestions.value);
     console.log("Values committed! Hopefully");
     emit("onStartClicked");
+    store.commit("setUsername", username.value)
+    router.push('questions')
 };
+
+const testQuestionsApi = async () => {
+    await store.dispatch('getQuestions');
+    console.log('got questions')
+}
 </script>
 
 <template>
     <form>
+        <button @click="testQuestionsApi">TEST questions api</button>
         <h1>Welcome to our Trivia Game</h1>
         <fieldset>
             <label for="username" class="label-style">

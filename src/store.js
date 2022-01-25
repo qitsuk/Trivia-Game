@@ -1,11 +1,15 @@
 import { createStore } from 'vuex'
 import { getCategories } from './api/category'
+import { getQuestions } from './api/questions';
+import { apiUserGet, apiUserPatch, apiUserPost } from './api/users';
+import { computed } from 'vue';
 
 export default createStore({
     state: {
         user: {
             username: '',
-            highScore: 0
+            highScore: 0,
+            id: ''
         },
         questions: [ //NOTE these questions are test values to use until we can call the opentdb api
             {
@@ -24,11 +28,10 @@ export default createStore({
                 "incorrect_answers": ["My Hatred", "My Sadness", "My Desire"]
             }
         ],
-        answers: [],
         categories: [],
 
         // These are for generating the API link, getting the questions.
-        selectedCategory: {},
+        selectedCategory: '',
         selectedDifficulty: "",
         selectedNumberOfQuestions: "",
         userAnswers: [],
@@ -36,6 +39,20 @@ export default createStore({
 
     },
     actions: {
+        async getQuestions() {
+            try {
+                const [error, questions] = await getQuestions();
+                console.log('in store', error, questions) // ISSUE: currently says " NetworkError when attempting to fetch resource." and null for questions
+                if (error !== null) {
+                    throw new Error(error);
+                }
+                this.commit("setQuestions", questions);
+                console.log(questions)
+                return null;
+            } catch (error) {
+                return error.message;
+            }
+        },
         async fetchAllCategories() {
             try {
                 const [error, categories] = await getCategories();
@@ -43,10 +60,33 @@ export default createStore({
                     throw new Error(error);
                 }
                 this.commit("setCategories", categories);
-                // console.log(categories);
                 return null;
             } catch (error) {
                 return error.message;
+            }
+        },
+        async getUserFromApi({commit, state}){
+            try {
+                const foundUser = await apiUserGet(state.user.username);
+                return foundUser
+            } catch (error) {
+                return error.message
+            }
+        },
+        async postHighScoreToApi({commit, state}){
+            try {
+                const response = await apiUserPost(state.user.username, state.user.highScore)
+                return response
+            } catch (error) {
+                return error.message
+            }
+        },
+        async patchHighScoreToApi({commit, state}){
+            try {
+                const response = await apiUserPatch(state.user.id, state.user.highScore)
+                return response
+            } catch (error) {
+                return error.message
             }
         }
 
@@ -54,6 +94,12 @@ export default createStore({
     mutations: {
         setUser: (state, payload) => {
             state.user = payload;
+        },
+        setUsername: (state, payload) => {
+            state.user.username = payload;
+        },
+        setHighScore: (state, payload) => {
+            state.user.highScore = payload;
         },
         setQuestions: (state, payload) => {
             state.questions = payload;
@@ -63,6 +109,9 @@ export default createStore({
         },
         setCategories: (state, payload) => {
             state.categories = payload;
+        },
+        setUserId: (state, payload) => {
+            state.user.id = payload;
         },
         setSelectedCategory: (state, payload) => {
             state.selectedCategory = payload;
@@ -77,6 +126,9 @@ export default createStore({
     getters: {
         getUser: (state) => {
             return state.user
+        },
+        getHighScore: (state) => {
+            return state.user.highScore
         },
         getQuestions: (state) => {
             return state.questions.map(question => question)

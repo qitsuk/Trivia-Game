@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore()
@@ -17,18 +17,47 @@ for (let i = 0; i < userAnswers.value.length; i++){
 }
 
 
+let usersArray;
+//updates the user highscore in the API
+const updateHighScore = async () => {  //ISSUE: this code is fine, but get requests can only find default users dewaldels and gingerbread
+    const oldScore = computed(() => store.getters.getHighScore)
+    if (oldScore.value > newScore){
+        return
+    }
+    store.commit('setHighScore', newScore)
+    usersArray = await store.dispatch("getUserFromApi");
+    console.log('users array', usersArray)
+    if (usersArray.length > 0){
+        let userId = usersArray[0].id
+        console.log(userId, 'exists')
+        store.commit('setUserId', userId)
+        const response = await store.dispatch('patchHighScoreToApi')
+        console.log('resp', response)
+     } else {
+        const response = await store.dispatch("postHighScoreToApi")
+         console.log('new user post resp', response)
+     }
+    }
+
+
 //calculates user score, 100 points pr. correct answer
-const calculateScore = () => { //refactor into a vue x getter later
-    
+const calculateNewScore = () => { //refactor into a vue x mutation that maybe includes the compariso with oldscore
     for (let i = 0; i < userAnswers.value.length; i++){
         if (userAnswers.value[i] === correctAnswers.value[i]){
-            newScore += 100
+            newScore += 10
         }
     }
 }
 
+// onMounted(() => {
+//     calculateNewScore()
+//     updateHighScore()
+// })
+const button = () => {
+    calculateNewScore()
+    updateHighScore()
+}
 
-calculateScore()
 
 // shows the user's score in this game + whether it exceeds previous highscore
 // shows correct answer to each question along with the user's answer
@@ -36,6 +65,7 @@ calculateScore()
 </script>
 <template>
     <h3>Score</h3>
+    <button @click="button">test</button>
 
     <p
     id="newScore"
