@@ -24,7 +24,7 @@ export default createStore({
                 "incorrect_answers": ["My Hatred", "My Sadness", "My Desire"]
             }
         ],
-        answers: [],
+        userAnswers: [],
         categories: []
     },
     actions: {
@@ -51,7 +51,7 @@ export default createStore({
             state.questions = payload;
         },
         addAnswer: (state, payload) => {
-            state.answers.push(payload);
+            state.userAnswers.push(payload);
         },
         setCategories: (state, payload) => {
             // console.log("Payload", payload);
@@ -59,14 +59,17 @@ export default createStore({
         }
     },
     getters: {
-        user: (state) => {
+        getUser: (state) => {
             return state.user
         },
         getQuestions: (state) => {
             return state.questions
         },
-        answers: (state) => {
-            return state.answers
+        getUserAnswers: (state) => {
+            return state.userAnswers.map(answer => answer)
+        },
+        getCategories: (state) => {
+            return state.categories;
         },
         getCorrectAnswers: (state) => {
             const correctAnswers = []
@@ -74,11 +77,6 @@ export default createStore({
                 correctAnswers.push(question.correct_answer)
             }
             return correctAnswers
-        },
-        getCategories: (state) => {
-            return state.categories;
-        }
-        
+        }  
     }
-
 })

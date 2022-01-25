@@ -7,14 +7,22 @@ import { onMounted } from 'vue'
 
 let newScore = 0
 const store = useStore()
-const userAnswers = computed(() => store.state.answers)
+
 const questions = computed(() => store.getters.getQuestions)
 
 
 
 const calculateScore = () => { //refactor into a vue x getter later
     const correctAnswers = computed(() => store.getters.getCorrectAnswers)
-    console.log(correctAnswers.value)
+    const userAnswers = computed(() => store.getters.getUserAnswers)
+    for (let i = 0; i < userAnswers.value.length; i++){
+        if (userAnswers.value[i] === correctAnswers.value[i]){
+            newScore += 100
+        }
+    }
+    console.log('score', newScore)
+    console.log('correct answers', correctAnswers.value)
+    console.log('user answers', userAnswers.value)
 }
 
 
