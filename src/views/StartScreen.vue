@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { apiUserGet } from "../api/users";
 import StartScreenForm from "../components/StartScreen/StartScreenForm.vue";
+import { useRouter } from "vue-router";
 const username = ref("") //will refer to an input field
 let user = {}
 
@@ -12,6 +13,7 @@ let user = {}
 // input menus for game settings filled out with result of get request above
 // button to start playing and place input into vue x store
 
+const router = useRouter();
 const userName = ref("");
 const difficulty = ref("");
 const numberOfQuestions = ref("");
@@ -22,11 +24,16 @@ const getUser = async () => {
   console.log(user);
 }
 
+const handleOnStartClicked = () => {
+  console.log("We good to go!");
+  router.push("questions");
+}
+
 </script>
 
 <template>
   <div class="centered">
-    <StartScreenForm />
+    <StartScreenForm @onStartClicked="handleOnStartClicked"/>
   </div>
 </template>
 

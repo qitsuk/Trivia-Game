@@ -54,7 +54,6 @@ onMounted(() => {
 
 <template>
   <h1>Questions!</h1>
-
   <p>{{ currentQuestion.question }}</p>
 
   <select v-model="answer">
@@ -65,6 +64,8 @@ onMounted(() => {
   <button id="nextQuestion" 
   @click="nextQuestionButton"
   >Next question</button>
+
+  <Question></Question>
 </template>
 
 <style scoped>

@@ -1,8 +1,9 @@
 <script setup>
-import { getCategories } from '../../api/category';
 import { useStore } from 'vuex';
 import { computed, ref } from 'vue';
 import store from '../../store';
+
+const emit = defineEmits(["onStartClicked"]);
 
 const categoryNames = ref([]);
 
@@ -15,9 +16,13 @@ const loadCategories = async () => {
     await store.dispatch("fetchAllCategories");
     const categories = computed(() => store.getters.getAllCategories);
     for (let category of categories.value) {
-        categoryNames.value.push(category.name);
+        let categoryObj = {};
+        categoryObj.text = category.name;
+        categoryObj.id = category.id;
+        categoryNames.value.push(categoryObj);
     }
     categoryNames.value.sort();
+    console.log(categoryNames.value);
 }
 loadCategories();
 
@@ -26,6 +31,8 @@ const onStartClick = () => {
     store.commit("setSelectedCategory", selectedCategory.value);
     store.commit("setSelectedDifficulty", difficulty.value);
     store.commit("setSelectedNumberOfQuestions", numberOfQuestions.value);
+    console.log("Values committed! Hopefully");
+    emit("onStartClicked");
 };
 </script>
 
@@ -58,9 +65,9 @@ const onStartClick = () => {
                 <option id="allCategories" value="">Questions from ALL Categories</option>
                 <option
                     v-for="category of categoryNames"
-                    :key="category"
-                    :value="{ text: category }"
-                >{{ category }}</option>
+                    :key="category.id"
+                    :value="{ category }"
+                >{{ category.text }}</option>
             </select>
             <br />
             <label for="numberOfQuestions" class="label-style">

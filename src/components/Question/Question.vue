@@ -1,7 +1,7 @@
 
 
 <script setup>
-
+import { displayOutput } from "../../api/questions";
 //includes 1 question and its associated 2 (true/false) or 4 (multiple choice) answer options 
 
 displayOutput();
@@ -10,12 +10,11 @@ displayOutput();
 
 
 </script>
-<template>
 
-   
+
+<template>
 
 </template>
 
 <style scoped>
-
 </style>
