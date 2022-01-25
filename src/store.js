@@ -25,17 +25,17 @@ export default createStore({
             }
         ],
         answers: [],
-        categories: {}
+        categories: []
     },
     actions: {
-        async getAllCategories() {
+        async fetchAllCategories() {
             try {
                 const [error, categories] = await getCategories();
                 if (error !== null) {
                     throw new Error(error);
                 }
                 this.commit("setCategories", categories);
-                console.log(categories);
+                // console.log(categories);
                 return null;
             } catch (error) {
                 return error.message;
@@ -54,7 +54,7 @@ export default createStore({
             state.answers.push(payload);
         },
         setCategories: (state, payload) => {
-            console.log("LOG")
+            // console.log("Payload", payload);
             state.categories = payload;
         }
     },
@@ -74,6 +74,9 @@ export default createStore({
                 correctAnswers.push(question.correct_answer)
             }
             return correctAnswers
+        },
+        getCategories: (state) => {
+            return state.categories;
         }
         
     }

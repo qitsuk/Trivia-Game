@@ -1,16 +1,20 @@
 <script setup>
 import { getCategories } from '../../api/category';
 import { useStore } from 'vuex';
-import { computed, onMounted } from 'vue';
+import { computed, ref } from 'vue';
 import store from '../../store';
 
-onMounted(() => {
-    store.dispatch("getAllCategories");
-});
-const categories = computed(() => store.state.categories);
+const categoryNames = ref([]);
 
-console.log(categories)
-
+const loadCategories = async () => {
+    await store.dispatch("fetchAllCategories");
+    const categories = computed(() => store.getters.getCategories);
+    for (let category of categories.value) {
+        categoryNames.value.push(category.name);
+    }
+    console.log(categoryNames);
+}
+loadCategories();
 </script>
 
 <template>
@@ -39,7 +43,7 @@ console.log(categories)
             </label>
             <br />
             <select id="category-select">
-                <option></option>
+                <option v-for="category of categoryNames" :key="category">{{category}}</option>
             </select>
             <br />
             <label for="numberOfQuestions" class="label-style">
