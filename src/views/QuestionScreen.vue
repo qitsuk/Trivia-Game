@@ -1,5 +1,5 @@
 <script setup>
-import {computed, ref} from 'vue'
+import {computed, ref, reactive} from 'vue'
 import Question from '../components/Question/Question.vue';
 import { useStore } from 'vuex';
 
@@ -13,26 +13,26 @@ const answers = computed(() => store.state.answers)
 const questions = computed(() => store.state.questions)
 
 let answerOptions = []
-let currentQuestion = ''
+let currentQuestion = ref('')
 let currentQuestionNumber = ref(0)
 
 const updatePageContent = () => {
-  currentQuestion = questions.value[currentQuestionNumber.value] //probably cleaner to replace this with vue x getter that takes in an index as argument
+  currentQuestion.value = questions.value[currentQuestionNumber.value] //probably cleaner to replace this with vue x getter that takes in an index as argument
   answerOptions = []
-  answerOptions.push(currentQuestion.correct_answer)
-  for (let answerOption in currentQuestion.incorrect_answers){
-      answerOptions.push(currentQuestion.incorrect_answers[answerOption])
+  answerOptions.push(currentQuestion.value.correct_answer)
+  for (let answerOption in currentQuestion.value.incorrect_answers){
+      answerOptions.push(currentQuestion.value.incorrect_answers[answerOption])
      }
   
 }
 
-updatePageContent()
+updatePageContent(0)
+
 //handler for the nextquestion button
 const nextQuestion = () => {
   store.commit('addAnswer', answer.value)
   currentQuestionNumber.value += 1
   updatePageContent()
-  currentQuestion = questions.value[currentQuestionNumber.value]
 
 }
 
@@ -41,7 +41,7 @@ const nextQuestion = () => {
 <template>
   <h1>question screen!</h1>
 
-  <!-- <p>{{currentQuestion.question}}</p> FIX THE RENDERING OF THIS WITH CONDITIONAL RENDERING, AND THEN SOME LIFECYCLE HOOK STUFF FOR RE-RENDERING AFTER "NEXTQUESTION" BUTTON --> 
+<p>{{currentQuestion.question}}</p> 
 
   <select v-model="answer">
     <option disabled value="">Choose an answer</option>

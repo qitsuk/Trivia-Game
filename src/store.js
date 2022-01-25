@@ -47,6 +47,9 @@ export default createStore({
         },
         answers: (state) => {
             return state.answers
+        },
+        currentQuestions: (state) => (questionNumber) => {
+            return state.questions.value[questionNumber]
         }
     }
 
