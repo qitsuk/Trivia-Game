@@ -12,24 +12,28 @@ let answer = ref('')
 const answers = computed(() => store.state.answers)
 const questions = computed(() => store.state.questions)
 
-let answerOptions = []
+let answerOptions = reactive([])
 let currentQuestion = ref('')
 let currentQuestionNumber = ref(0)
 
 const updatePageContent = () => {
   currentQuestion.value = questions.value[currentQuestionNumber.value] //probably cleaner to replace this with vue x getter that takes in an index as argument
-  answerOptions = []
+  answerOptions.splice(0, answerOptions.length)
   answerOptions.push(currentQuestion.value.correct_answer)
   for (let answerOption in currentQuestion.value.incorrect_answers) {
     answerOptions.push(currentQuestion.value.incorrect_answers[answerOption]);
   }
   console.log(answerOptions);
+  answer.value = ''
 }
 
 updatePageContent(0)
 
 //handler for the nextquestion button
 const nextQuestion = () => {
+  if (!answer.value){
+    return
+  }
   store.commit('addAnswer', answer.value);
   currentQuestionNumber.value += 1;
   updatePageContent();
