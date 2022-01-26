@@ -1,3 +1,4 @@
+//api calls for interacting with users database
 import { BASE_API_URL, API_KEY } from ".";
 
 //gets an existing user based on username

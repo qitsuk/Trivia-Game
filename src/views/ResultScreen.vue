@@ -1,11 +1,8 @@
 <script setup>
 import ReplayReturn from '../components/Results/ReplayReturn.vue';
 import ScoreAnswers from '../components/Results/ScoreAnswers.vue';
-import { ref, computed } from 'vue';
 
-
-
-
+//view for the results part of the website
 // has a replayreturn component to play more rounds of Trivia
 // has a ScoreAnswers component to show results
 
@@ -15,8 +12,6 @@ import { ref, computed } from 'vue';
 
 <template>
   <h1>Here are your results</h1>
-    
-
   <p>
     <ScoreAnswers></ScoreAnswers>
   </p>

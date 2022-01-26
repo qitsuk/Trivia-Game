@@ -1,17 +1,22 @@
+//api calls for getting questions based on user-provided parameters
 import { computed } from "vue";
 import { BASE_TRIVIA_API_URL } from ".";
 import store from "../store";
 import { useRouter } from 'vue-router';
 
+//redirect function to startpage
 const router = useRouter();
 const returnToStart = () => {
     router.push("/");
 }
 
+//user's chosen game settings for use in url
 const selectedDifficulty = computed(() => store.getters.getSelectedDifficulty);
 const selectedCategory = computed(() => store.getters.getSelectedCategory);
 const numberOfQuestions = computed(() => store.getters.getSelectedNumberOfQuestions);
 
+
+//builds api url based on the above info
 export const buildAPIURL = () => {
     const difficulty = selectedDifficulty.value;
     const numOfQuestions = numberOfQuestions.value;
@@ -24,7 +29,7 @@ export const buildAPIURL = () => {
     }
 }
 
-
+//api call to get questions
 export async function getQuestions() {
     try {
         const response = await fetch(buildAPIURL());

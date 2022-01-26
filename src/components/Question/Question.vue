@@ -1,15 +1,16 @@
 <script setup>
-
 import { computed, ref, reactive, onMounted } from 'vue'
-
-
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 // contains a question component for each question in the current game
 // ends with button that submits  the answers in all question components
 //current version ignores the Question component, might reintroduce it later
+
+//vue setup
 const router = useRouter()
 const store = useStore()
+
+//vars for tracking questions and answers
 const userAnswers = computed(() => store.getters.getUserAnswers)
 const questions = computed(() => store.getters.getQuestions)
 let userAnswer = ref('')
@@ -23,13 +24,13 @@ async function setupQuestions(){
   updateQuestionAndAnswers();
 }
 
-
+//loads question into html when component is mounted
 onMounted(() => {
   setupQuestions()
 });
 
 
-//handler for the nextquestion button
+//handler for the nextquestion button. Moves to next question if possible, otherwise continues to ResultScreen view.
 const nextQuestionButton = () => {
   if (!userAnswer.value) {
     return
