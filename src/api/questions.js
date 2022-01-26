@@ -1,12 +1,9 @@
 import { computed } from "vue";
 import { BASE_TRIVIA_API_URL } from ".";
 import store from "../store";
-import { useRouter } from 'vue-router';
+import createRouter from '../router'
 
-const router = useRouter();
-const returnToStart = () => {
-    router.push("/");
-}
+const router = createRouter;
 
 const selectedDifficulty = computed(() => store.getters.getSelectedDifficulty);
 const selectedCategory = computed(() => store.getters.getSelectedCategory);
@@ -31,7 +28,7 @@ export async function getQuestions() {
         const result = await response.json();
         if (result.response_code === 1 && response.ok) {
             console.log("The API responded with a code 1");
-            returnToStart();
+            router.push("/");
         } else if (result.reponse_code === 0 && response.ok) {
             return [null, result];
         } else {
