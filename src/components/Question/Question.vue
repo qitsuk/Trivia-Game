@@ -7,16 +7,19 @@ import { useRouter } from 'vue-router';
 //current version ignores the Question component, might reintroduce it later
 
 //vue setup
-const router = useRouter()
-const store = useStore()
+const router = useRouter();
+const store = useStore();
 
 //vars for tracking questions and answers
-const userAnswers = computed(() => store.getters.getUserAnswers)
-const questions = computed(() => store.getters.getQuestions)
-let userAnswer = ref('')
-let answerOptions = reactive([])
-let currentQuestion = ref({})
-let currentQuestionNumber = 0
+const userAnswers = computed(() => store.getters.getUserAnswers);
+const questions = computed(() => store.getters.getQuestions);
+let userAnswer = ref('');
+let answerOptions = reactive([]);
+let currentQuestion = ref({});
+let currentQuestionNumber = 0;
+const buttonText = ref("Next Question");
+
+
 
 //sends out an api get request to collect questions based on previous user input parameters
 async function setupQuestions(){
@@ -36,11 +39,14 @@ const nextQuestionButton = () => {
     return
   }
   store.commit('addAnswer', userAnswer.value);
-  userAnswer.value = ''
-  answerOptions.splice(0, answerOptions.length)
-  currentQuestionNumber += 1;
+  userAnswer.value = '';
+  answerOptions.splice(0, answerOptions.length);
+  currentQuestionNumber++;
+  if (questions.value[currentQuestionNumber + 1] === undefined) {
+    buttonText.value = "Results";
+  }
   if (questions.value[currentQuestionNumber] === undefined) {
-    router.push('results')
+    router.push('results');
   } else {
     updateQuestionAndAnswers();
   }
@@ -49,8 +55,8 @@ const nextQuestionButton = () => {
 
 //gets a new question and loads its answer options to be shown on the page
 const updateQuestionAndAnswers = () => {
-  currentQuestion.value = questions.value[currentQuestionNumber]
-  answerOptions.push(currentQuestion.value.correct_answer)
+  currentQuestion.value = questions.value[currentQuestionNumber];
+  answerOptions.push(currentQuestion.value.correct_answer);
   for (let answerOption in currentQuestion.value.incorrect_answers) {
     answerOptions.push(currentQuestion.value.incorrect_answers[answerOption]);
   }
@@ -67,7 +73,7 @@ const updateQuestionAndAnswers = () => {
     <option v-for="answerOption in answerOptions" :key="answerOption">{{ answerOption }}</option>
   </select>
 
-  <button id="nextQuestion" @click="nextQuestionButton">Next question</button>
+  <button id="nextQuestion" @click="nextQuestionButton">{{ buttonText }}</button>
 
 </template>
 
