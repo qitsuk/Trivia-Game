@@ -37,13 +37,13 @@ const nextQuestionButton = () => {
 //NOTE remember to randomize the order of answerOptions array https://dev.to/codebubb/how-to-shuffle-an-array-in-javascript-2ikj
 
 //gets a new question and loads its answer options to be shown on the page
-const updateQuestionAndAnswers = () => {
-  currentQuestion.value = questions.value[currentQuestionNumber.value] //probably cleaner to replace this with vue x getter that takes in an index as argument
-  answerOptions.push(currentQuestion.value.correct_answer)
-  for (let answerOption in currentQuestion.value.incorrect_answers) {
-    answerOptions.push(currentQuestion.value.incorrect_answers[answerOption]);
-  }
-}
+// const updateQuestionAndAnswers = () => {
+//   currentQuestion.value = questions.value[currentQuestionNumber.value] //probably cleaner to replace this with vue x getter that takes in an index as argument
+//   answerOptions.push(currentQuestion.value.correct_answer)
+//   for (let answerOption in currentQuestion.value.incorrect_answers) {
+//     answerOptions.push(currentQuestion.value.incorrect_answers[answerOption]);
+//   }
+// }
 
 onMounted(() => {
   updateQuestionAndAnswers()
