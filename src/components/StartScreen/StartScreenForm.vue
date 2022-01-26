@@ -37,15 +37,11 @@ const onStartClick = () => {
     router.push('questions')
 };
 
-// const testQuestionsApi = async () => {
-//     await store.dispatch('getQuestions');
-//     console.log('got questions');
-// }
+
 </script>
 
 <template>
     <form>
-        <!-- <button @click="testQuestionsApi">TEST questions api</button> -->
         <h1>Welcome to our Trivia Game</h1>
         <fieldset>
             <label for="username" class="label-style">
@@ -85,7 +81,7 @@ const onStartClick = () => {
             <input
                 type="number"
                 v-model.number="numberOfQuestions"
-                placeholder="Enter number of quesitons"
+                placeholder="Enter number of questions"
             />
             <br />
             <button type="button" @click="onStartClick">Start The Game!</button>

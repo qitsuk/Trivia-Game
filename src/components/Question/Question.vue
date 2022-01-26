@@ -4,7 +4,7 @@ import store from "../../store";
 
 //includes 1 question and its associated 2 (true/false) or 4 (multiple choice) answer options 
 // await store.dispatch('getQuestions');
-await console.log(store.dispatch('getQuestions'));
+
 </script>
 
 

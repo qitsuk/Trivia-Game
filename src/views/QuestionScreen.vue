@@ -9,45 +9,51 @@ import { onMounted } from 'vue';
 //current version ignores the Question component, might reintroduce it later
 const router = useRouter()
 const store = useStore()
-const userAnswers = computed(() => store.state.UserAnswers)
-const questions = computed(() => store.state.questions)
-
-let answer = ref('')
+const userAnswers = computed(() => store.getters.getUserAnswers)
+const questions = computed(() => store.getters.getQuestions)
+let userAnswer = ref('')
 let answerOptions = reactive([])
-let currentQuestion = ref('')
-let currentQuestionNumber = ref(0)
-let finishedLastQuestion = ref(false)
+let currentQuestion = ref({})
+let currentQuestionNumber = 0
+
+async function setupQuestions(){
+  await store.dispatch('getQuestions');
+  updateQuestionAndAnswers();
+  
+}
+
+onMounted(() => {
+  setupQuestions()
+});
+
 
 //handler for the nextquestion button
 const nextQuestionButton = () => {
-  if (!answer.value) {
+  if (!userAnswer.value) {
     return
   }
-  store.commit('addAnswer', answer.value);
-  answer.value = ''
+  store.commit('addAnswer', userAnswer.value);
+  userAnswer.value = ''
   answerOptions.splice(0, answerOptions.length)
-  currentQuestionNumber.value += 1;
-  if (questions.value[currentQuestionNumber.value] === undefined) {
+  currentQuestionNumber += 1;
+  if (questions.value[currentQuestionNumber] === undefined) {
     router.push('results')
   } else {
     updateQuestionAndAnswers();
   }
 }
 
-//NOTE remember to randomize the order of answerOptions array https://dev.to/codebubb/how-to-shuffle-an-array-in-javascript-2ikj
 
 //gets a new question and loads its answer options to be shown on the page
 const updateQuestionAndAnswers = () => {
-  currentQuestion.value = questions.value[currentQuestionNumber.value] //probably cleaner to replace this with vue x getter that takes in an index as argument
+  currentQuestion.value = questions.value[currentQuestionNumber]
+  console.log('curr', currentQuestion.value)
   answerOptions.push(currentQuestion.value.correct_answer)
   for (let answerOption in currentQuestion.value.incorrect_answers) {
     answerOptions.push(currentQuestion.value.incorrect_answers[answerOption]);
   }
 }
 
-onMounted(() => {
-  updateQuestionAndAnswers()
-});
 
 
 </script>
@@ -56,7 +62,7 @@ onMounted(() => {
   <h1>Questions!</h1>
   <p>{{ currentQuestion.question }}</p>
 
-  <select v-model="answer">
+  <select v-model="userAnswer">
     <option disabled value>Choose an answer</option>
     <option v-for="answerOption in answerOptions" :key="answerOption">{{ answerOption }}</option>
   </select>
