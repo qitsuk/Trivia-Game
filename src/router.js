@@ -3,7 +3,7 @@ const StartScreen = () => import ('./views/StartScreen.vue')
 const QuestionScreen = () => import ('./views/QuestionScreen.vue')
 const ResultScreen = () => import ('./views/ResultScreen.vue')
 
-
+//config for vue router
 const routes = [
     {
         path: '/',

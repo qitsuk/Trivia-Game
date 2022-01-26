@@ -4,16 +4,23 @@ import { computed, ref } from 'vue';
 import store from '../../store';
 import { useRouter } from 'vue-router';
 
+
+//click handler emit
 const emit = defineEmits(["onStartClicked"]);
 
+//vue setup
 const router = useRouter();
-const categoryNames = ref([]);
 
+
+//vars for tracking user input about username and game settings
+const categoryNames = ref([]);
 const username = ref("");
 const difficulty = ref("");
 const selectedCategory = ref("");
 const numberOfQuestions = ref(0);
 
+
+//gets available categories from api and loads them to use in html
 const loadCategories = async () => {
     await store.dispatch("fetchAllCategories");
     const categories = computed(() => store.getters.getAllCategories);
@@ -25,8 +32,12 @@ const loadCategories = async () => {
     }
     categoryNames.value.sort();
 }
+
+//call to load categories
 loadCategories();
 
+
+//handler for the startclick button. First checks if all necessary input has been given, then commits relevant values to the store and routes to QuestionScreen
 const onStartClick = () => {
     if (difficulty.value === "" || (numberOfQuestions.value <= 0 || numberOfQuestions.value > 50) || username.value === "") {
         alert("Something is wrong here. Remember to choose a difficulty and request at least 1 question and no more than 50. Also, you have to set your username, so we can keep track of your highscore.");
@@ -39,7 +50,6 @@ const onStartClick = () => {
         router.push('questions');
     }
 };
-
 
 </script>
 

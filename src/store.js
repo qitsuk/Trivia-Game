@@ -2,8 +2,9 @@ import { createStore } from 'vuex'
 import { getCategories } from './api/category'
 import { getQuestions } from './api/questions';
 import { apiUserGet, apiUserPatch, apiUserPost } from './api/users';
-import { computed } from 'vue';
 
+//store with state, actions, mutations, and getters. State contains info about current user, their game settings and answers, as well as the 
+    //current questions + all available categories
 export default createStore({
     state: {
         user: {
@@ -23,6 +24,7 @@ export default createStore({
 
     },
     actions: {
+        //calls api to get questions
         async getQuestions() {
             try {
                 const [error, questions] = await getQuestions();
@@ -35,6 +37,7 @@ export default createStore({
                 return error.message;
             }
         },
+        //calls api to get trivia categories
         async fetchAllCategories() {
             try {
                 const [error, categories] = await getCategories();
@@ -47,6 +50,7 @@ export default createStore({
                 return error.message;
             }
         },
+        //calls api to get user from database
         async getUserFromApi({commit, state}){
             try {
                 const foundUser = await apiUserGet(state.user.username);
@@ -55,6 +59,7 @@ export default createStore({
                 return error.message
             }
         },
+        //calls api to post user to database
         async postHighScoreToApi({commit, state}){
             try {
                 const response = await apiUserPost(state.user.username, state.user.highScore)
@@ -63,6 +68,7 @@ export default createStore({
                 return error.message
             }
         },
+        //calls api to patch user to database
         async patchHighScoreToApi({commit, state}){
             try {
                 const response = await apiUserPatch(state.user.id, state.user.highScore)
@@ -74,6 +80,7 @@ export default createStore({
 
     },
     mutations: {
+        //resets relevant state when user wants to start from scratch
         setDefaultRestart: (state) => {
             state.user = {}
              state.selectedCategory = {}
@@ -82,6 +89,7 @@ export default createStore({
              state.userAnswers = []
              state.questions = []
         },
+        //resets relevant state when user wants to replay with same settings
         setDefaultReplay: (state) => {
             state.questions = []
             state.userAnswers = []
@@ -136,6 +144,7 @@ export default createStore({
         getCategories: (state) => {
             return state.categories;
         },
+        //extracts an array of the correct answers to all loaded questions
         getCorrectAnswers: (state) => {
             const correctAnswers = []
             for (let question of state.questions){
@@ -154,7 +163,6 @@ export default createStore({
         },
         getSelectedNumberOfQuestions: (state) => {
             return state.selectedNumberOfQuestions
-        },
-        
+        },  
     }
 })

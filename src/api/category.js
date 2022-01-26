@@ -1,5 +1,6 @@
-import { BASE_TRIVIA_API_URL } from ".";
 
+import { BASE_TRIVIA_API_URL } from ".";
+//api call for getting available trivia categories
 export async function getCategories() {
     try {
         const response = await fetch(`${BASE_TRIVIA_API_URL}_category.php`);

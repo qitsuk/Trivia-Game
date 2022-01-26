@@ -1,22 +1,14 @@
 <script setup>
-import { ref } from "vue";
-import { apiUserGet } from "../api/users";
 import StartScreenForm from "../components/StartScreen/StartScreenForm.vue";
 import { useRouter } from "vue-router";
 
-//SETUP FOR A NEW GAME:
-// input field for username
-// get available game settings (nr of questions, category, difficulty) from question database
-// input menus for game settings filled out with result of get request above
-// button to start playing and place input into vue x store
+//view for the setup part of the website
+//StartScreenForm component handles user input
 
+//vue setup
 const router = useRouter();
-const userName = ref("");
-const difficulty = ref("");
-const numberOfQuestions = ref("");
 
-
-
+//handler for startbutton. brings user to QuestionScreen view.
 const handleOnStartClicked = () => {
   router.push("questions");
 }
