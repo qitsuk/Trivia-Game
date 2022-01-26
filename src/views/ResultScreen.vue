@@ -17,7 +17,6 @@ import { ref, computed } from 'vue';
   <h1>Here are your results</h1>
     
 
-    
   <p>
     <ScoreAnswers></ScoreAnswers>
   </p>
