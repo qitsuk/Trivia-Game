@@ -4,9 +4,11 @@ import { BASE_TRIVIA_API_URL } from ".";
 import store from "../store";
 import createRouter from '../router'
 
+
 const router = createRouter;
-//redirect function to startpage
-const router = useRouter();
+// A redirect function to get back to the frontpage if the API returns a code 1
+// Code 1: No Results - Could not return results. The API doesn't have enough questions for your query. 
+// (Ex. Asking for 50 Questions in a Category that only has 20.)
 const returnToStart = () => {
     router.push("/");
 }
@@ -38,7 +40,7 @@ export async function getQuestions() {
         if (result.response_code === 1 && response.ok) {
             console.log("The API responded with a code 1");
             router.push("/");
-        } else if (result.reponse_code === 0 && response.ok) {
+        } else if (response.ok) {
             return [null, result];
         } else {
             throw new Error(error);
