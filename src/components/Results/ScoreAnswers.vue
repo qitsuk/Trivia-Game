@@ -15,9 +15,9 @@ const questionTitles = computed(() => store.getters.getQuestionTitles)
 const correctAnswers = computed(() => store.getters.getCorrectAnswers)
 const userAnswers = computed(() => store.getters.getUserAnswers)
 const results = {}
-for (let i = 0; i < userAnswers.value.length; i++){
+for (let i = 0; i < userAnswers.value.length; i++) {
     results[i] = {
-        questionTitle : questionTitles.value[i],
+        questionTitle: questionTitles.value[i],
         userAnswer: userAnswers.value[i],
         correctAnswer: correctAnswers.value[i]
     }
@@ -26,8 +26,8 @@ let usersArray;
 
 //calculates user score, 10 points pr. correct answer
 const calculateNewScore = () => {
-    for (let i = 0; i < userAnswers.value.length; i++){
-        if (userAnswers.value[i] === correctAnswers.value[i]){
+    for (let i = 0; i < userAnswers.value.length; i++) {
+        if (userAnswers.value[i] === correctAnswers.value[i]) {
             newScore.value += 10
         }
     }
@@ -37,12 +37,12 @@ const calculateNewScore = () => {
 const updateHighScore = async () => { //ISSUE when user already exists, it still POSTS (else-block) because GET can't find non-default users
     calculateNewScore()
     const oldScore = computed(() => store.getters.getHighScore)
-    if (oldScore.value > newScore.value){
-          return
-      }
+    if (oldScore.value > newScore.value) {
+        return
+    }
     store.commit('setHighScore', newScore.value)
     usersArray = await store.dispatch("getUserFromApi");
-    if (usersArray.length > 0){
+    if (usersArray.length > 0) {
         let userId = usersArray[0].id
         store.commit('setUserId', userId)
         const response = await store.dispatch('patchHighScoreToApi')
@@ -60,23 +60,20 @@ onMounted(() => {
 
 </script>
 <template>
-    <h3>Score</h3>
-
-    <p
-    id="newScore"
-    v-bind="newScore">Your score: {{newScore}}</p>
+    <h1 class="text-3xl">
+        <b>Here are your results:</b>
+    </h1>
+    <p id="newScore" v-bind="newScore"><b>Your score: {{ newScore }}</b></p>
 
     <h3>Correct answers</h3>
-    <div v-for="result in results" :key="result"><b>{{result.questionTitle}}</b>
-    <ul>
-        <li>Your answer: {{result.userAnswer}}</li>
-        <li>Correct answer: {{result.correctAnswer}}</li>
-    </ul>
+    <div v-for="result in results" :key="result">
+        <b>{{ result.questionTitle }}</b>
+        <ul>
+            <li>Your answer: {{ result.userAnswer }}</li>
+            <li>Correct answer: {{ result.correctAnswer }}</li>
+        </ul>
     </div>
-
-
 </template>
 
 <style scoped>
-
 </style>

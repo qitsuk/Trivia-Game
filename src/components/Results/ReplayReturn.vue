@@ -17,23 +17,25 @@ const returnToStart = () => {
 }
 
 //replays trivia game with same settings, but resets answers and questions
-const replaySameSettings= () => {
+const replaySameSettings = () => {
   router.push('questions')
   store.commit('setDefaultReplay')
-    
+
 }
 
 </script>
 <template>
-    <button id="returnToStart"
-    @click="returnToStart"
-    >Return to start page</button>
-
-    <button id="replaySameSettings"
-    @click="replaySameSettings"
-    >Replay with the same settings</button>
+  <div>
+    <button
+      id="returnToStart"
+      class="bg-emerald-900 text-2xl p-3 rounded-2xl m-3"
+      @click="returnToStart"
+    >Return to Start Page</button>
+  </div>
+  <div>
+    <button id="replaySameSettings" @click="replaySameSettings" class="bg-yellow-400 text-2xl p-3 rounded-2xl m-3">Play Again with Same Settings</button>
+  </div>
 </template>
 
 <style scoped>
-
 </style>

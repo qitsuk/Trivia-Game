@@ -11,14 +11,14 @@ import ScoreAnswers from '../components/Results/ScoreAnswers.vue';
 </script>
 
 <template>
-  <h1>Here are your results</h1>
+<div class="h-screen flex justify-center border-8 border-violet-800">
   <p>
     <ScoreAnswers></ScoreAnswers>
   </p>
   <p>
     <ReplayReturn></ReplayReturn>
   </p>
-  
+  </div>
 </template>
 
 <style scoped>
