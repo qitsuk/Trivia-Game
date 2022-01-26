@@ -1,22 +1,11 @@
 ## Trivia game
-Trivia website written in Vue. Should include options to login/register a user, keep a personal highscore, and answer trivia questions in different categories.
+Trivia website written in Vue. 
+Allows the user to answer trivia questions in various categories, and keep a personal highscore along with their username.
 
-## TO DO
+## How to use
+Hosted on gitlab pages. Can also be run locally by navigating to root folder in console and typing "npm run dev".
 
-# Routing
-prevent non-programmatic routing to /questions and /results (is this called guarding routes?)
+## Dependencies
+Vue x
+Vue router
 
-# contact with user-api
-In ResultScreen:
-  post/patch username and highscore (if > previous highscore) after checking for correct answers
-
-(optional) In StartScreen:
-    get user in order to display existing highscore in TriviaHeader while playing
-
-# contact with questions-api
-
-In QuestionScreen:
-    get question objects based on user input at startscreen.
-
-# CSS
-optional styling of components if there is time

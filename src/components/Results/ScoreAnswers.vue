@@ -62,7 +62,6 @@ onMounted(() => {
 </script>
 <template>
     <h3>Score</h3>
-    <button @click="button">test</button>
 
     <p
     id="newScore"
