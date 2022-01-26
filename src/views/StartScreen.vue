@@ -16,17 +16,10 @@ const handleOnStartClicked = () => {
 </script>
 
 <template>
-  <div class="centered">
+  <div class="h-screen flex justify-center items-center border-orange-600 border-8">
     <StartScreenForm @onStartClicked="handleOnStartClicked"/>
   </div>
 </template>
 
 <style scoped>
-.centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 100vh;
-}
 </style>

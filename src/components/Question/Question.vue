@@ -22,7 +22,7 @@ const buttonText = ref("Next Question");
 
 
 //sends out an api get request to collect questions based on previous user input parameters
-async function setupQuestions(){
+async function setupQuestions() {
   await store.dispatch('getQuestions');
   updateQuestionAndAnswers();
 }
@@ -66,17 +66,30 @@ const updateQuestionAndAnswers = () => {
 </script>
 
 <template>
-    <p>{{ currentQuestion.question }}</p>
-
-  <select v-model="userAnswer">
-    <option disabled value>Choose an answer</option>
-    <option v-for="answerOption in answerOptions" :key="answerOption">{{ answerOption }}</option>
-  </select>
-
-  <button id="nextQuestion" @click="nextQuestionButton">{{ buttonText }}</button>
-
+  <div class="flex h-screen">
+    <div class="m-auto">
+      <h1 class="text-3xl">
+        <b>Questions!</b>
+      </h1>
+      <p>{{ currentQuestion.question }}</p>
+      <div class="flex item-stretch">
+        <div class="py-4">
+          <select v-model="userAnswer" class="p-3 m-3">
+            <option disabled value>Choose an answer</option>
+            <option v-for="answerOption in answerOptions" :key="answerOption">{{ answerOption }}</option>
+          </select>
+        </div>
+        <div class="py-4">
+          <button
+            id="nextQuestion"
+            class="border-slate-900 bg-green-800 p-3 rounded-lg ml-20 m-3"
+            @click="nextQuestionButton"
+          >{{ buttonText }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-
 </style>

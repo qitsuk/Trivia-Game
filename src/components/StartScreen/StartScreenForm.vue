@@ -55,59 +55,82 @@ const onStartClick = () => {
 
 <template>
     <form>
-        <h1>Welcome to our Trivia Game</h1>
+        <h1 class="text-3xl p-4 flex justify-center">
+            <b>Welcome to our Trivia Game</b>
+        </h1>
         <fieldset>
-            <label for="username" class="label-style">
-                <b>What is your username?</b>
-            </label>
-            <br />
-            <input type="text" id="username" placeholder="Your username here" v-model="username" />
-            <br />
-            <label for="difficulty" class="label-style">
-                <b>Choose your difficulty:</b>
-            </label>
-            <br />
-            <select id="difficulty-select" v-model="difficulty">
-                <option disabled value selected>Choose here</option>
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-            </select>
-            <br />
-            <label for="category" class="label-style">
-                <b>Select a Category:</b>
-            </label>
-            <br />
-            <select id="category-select" v-model="selectedCategory">
-                <option
-                    id="allCategories"
-                    value="0"
-                    selected="selected"
-                >Questions from ALL Categories</option>
-                <option
-                    v-for="category of categoryNames"
-                    :key="category.id"
-                    :value="{ category }"
-                >{{ category.text }}</option>
-            </select>
-            <br />
-            <label for="numberOfQuestions" class="label-style">
-                <b>How many questions would you like?</b>
-            </label>
-            <br />
-            <input
-                type="number"
-                v-model.number="numberOfQuestions"
-                placeholder="Enter number of questions"
-            />
-            <br />
-            <button type="button" @click="onStartClick">Start The Game!</button>
+            <div class="grid gap-4">
+                <div class="flex justify-center border-4 border-rose-500 p-4">
+                    <label for="username" class="p-3">
+                        <b>What is your username?</b>
+                    </label>
+                    <br />
+                    <input
+                        class="border-slate-800"
+                        type="text"
+                        id="username"
+                        placeholder="Your username here"
+                        v-model="username"
+                    />
+                    <br />
+                </div>
+                <div class="flex justify-center border-4 border-green-600 p-3">
+                    <label for="difficulty" class="p-2">
+                        <b>Choose your difficulty:</b>
+                    </label>
+                    <br />
+                    <select id="difficulty-select" v-model="difficulty" class="p-2">
+                        <option disabled value selected>Choose here</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                    <br />
+                </div>
+                <div
+                    class="align-middle items-center border-4 border-indigo-800 p-3 flex justify-center"
+                >
+                    <label for="category" class="p-3">
+                        <b class="p-3">Select a Category:</b>
+                    </label>
+                    <br />
+                    <select id="category-select" v-model="selectedCategory" class="p-2">
+                        <option
+                            id="allCategories"
+                            value="0"
+                            selected="selected"
+                        >Questions from ALL Categories</option>
+                        <option
+                            v-for="category of categoryNames"
+                            :key="category.id"
+                            :value="{ category }"
+                        >{{ category.text }}</option>
+                    </select>
+                    <br />
+                </div>
+                <div class="flex justify-center p-3 border-4 border-cyan-500">
+                    <label for="numberOfQuestions" class="p-2">
+                        <b>How many questions would you like?</b>
+                    </label>
+                    <br />
+                    <input
+                        type="number"
+                        v-model.number="numberOfQuestions"
+                        placeholder="Enter number of questions"
+                    />
+                    <br />
+                </div>
+                <div class="flex justify-center">
+                    <button
+                        type="button"
+                        @click="onStartClick"
+                        class="bg-lime-700 rounded-md p-4"
+                    >Start The Game!</button>
+                </div>
+            </div>
         </fieldset>
     </form>
 </template>
 
 <style>
-.label-style {
-    font-size: larger;
-}
 </style>
