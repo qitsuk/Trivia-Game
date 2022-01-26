@@ -55,59 +55,69 @@ const onStartClick = () => {
 
 <template>
     <form>
-        <h1>Welcome to our Trivia Game</h1>
+        <h1 class="text-3xl">
+            <b>Welcome to our Trivia Game</b>
+        </h1>
         <fieldset>
-            <label for="username" class="label-style">
-                <b>What is your username?</b>
-            </label>
-            <br />
-            <input type="text" id="username" placeholder="Your username here" v-model="username" />
-            <br />
-            <label for="difficulty" class="label-style">
-                <b>Choose your difficulty:</b>
-            </label>
-            <br />
-            <select id="difficulty-select" v-model="difficulty">
-                <option disabled value selected>Choose here</option>
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-            </select>
-            <br />
-            <label for="category" class="label-style">
-                <b>Select a Category:</b>
-            </label>
-            <br />
-            <select id="category-select" v-model="selectedCategory">
-                <option
-                    id="allCategories"
-                    value="0"
-                    selected="selected"
-                >Questions from ALL Categories</option>
-                <option
-                    v-for="category of categoryNames"
-                    :key="category.id"
-                    :value="{ category }"
-                >{{ category.text }}</option>
-            </select>
-            <br />
-            <label for="numberOfQuestions" class="label-style">
-                <b>How many questions would you like?</b>
-            </label>
-            <br />
-            <input
-                type="number"
-                v-model.number="numberOfQuestions"
-                placeholder="Enter number of questions"
-            />
-            <br />
-            <button type="button" @click="onStartClick">Start The Game!</button>
+            <div>
+                <label for="username">
+                    <b>What is your username?</b>
+                </label>
+                <br />
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Your username here"
+                    v-model="username"
+                />
+                <br />
+                <label for="difficulty" class="label-style">
+                    <b>Choose your difficulty:</b>
+                </label>
+                <br />
+                <select id="difficulty-select" v-model="difficulty">
+                    <option disabled value selected>Choose here</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+                <br />
+                <label for="category" class="label-style">
+                    <b>Select a Category:</b>
+                </label>
+                <br />
+                <select id="category-select" v-model="selectedCategory">
+                    <option
+                        id="allCategories"
+                        value="0"
+                        selected="selected"
+                    >Questions from ALL Categories</option>
+                    <option
+                        v-for="category of categoryNames"
+                        :key="category.id"
+                        :value="{ category }"
+                    >{{ category.text }}</option>
+                </select>
+                <br />
+                <label for="numberOfQuestions" class="label-style">
+                    <b>How many questions would you like?</b>
+                </label>
+                <br />
+                <input
+                    type="number"
+                    v-model.number="numberOfQuestions"
+                    placeholder="Enter number of questions"
+                />
+                <br />
+                <button
+                    type="button"
+                    @click="onStartClick"
+                    class="bg-lime-700 rounded-md"
+                >Start The Game!</button>
+            </div>
         </fieldset>
     </form>
 </template>
 
 <style>
-.label-style {
-    font-size: larger;
-}
 </style>
