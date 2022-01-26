@@ -20,6 +20,10 @@ const routes = [
 ]
 
 export default createRouter({
-    history: createWebHistory(), //update with ternary operator for production vs development mode if hosting on gitlab pages
+    history: createWebHistory(
+        process.env.NODE_ENV === 'production'
+        ? '/assignment-2-trivia/'
+        : '/'
+    ), 
     routes
 })

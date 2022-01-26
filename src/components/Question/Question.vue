@@ -49,7 +49,6 @@ const nextQuestionButton = () => {
 //gets a new question and loads its answer options to be shown on the page
 const updateQuestionAndAnswers = () => {
   currentQuestion.value = questions.value[currentQuestionNumber]
-  console.log('curr', currentQuestion.value)
   answerOptions.push(currentQuestion.value.correct_answer)
   for (let answerOption in currentQuestion.value.incorrect_answers) {
     answerOptions.push(currentQuestion.value.incorrect_answers[answerOption]);

@@ -1,5 +1,4 @@
 <script setup>
-import TriviaHeader from "./components/TriviaHeader.vue";
 
 // <router-link to='/questions' active-class="active">Questions TEST</router-link>
 // <router-link to='/results' active-class="active">Results TEST</router-link>
@@ -9,7 +8,7 @@ import TriviaHeader from "./components/TriviaHeader.vue";
 
 
 <template>
-  <TriviaHeader></TriviaHeader>
+
   <router-view />
 </template>
 
