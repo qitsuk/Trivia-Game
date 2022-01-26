@@ -18,7 +18,6 @@ const numberOfQuestions = ref("");
 
 
 const handleOnStartClicked = () => {
-  console.log("We good to go!");
   router.push("questions");
 }
 

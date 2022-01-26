@@ -11,8 +11,13 @@ export const buildAPIURL = () => {
     const difficulty = selectedDifficulty.value;
     const numOfQuestions = numberOfQuestions.value;
     const category = JSON.parse(JSON.stringify(selectedCategory.value));
-    const categoryID = category.category.id;
-    return `${BASE_TRIVIA_API_URL}.php?amount=${numOfQuestions}&category=${categoryID}&difficulty=${difficulty}`; 
+    if (category === undefined) {
+        console.log(`${BASE_TRIVIA_API_URL}.php?amount=${numOfQuestions}&difficulty=${difficulty}`);
+        return `${BASE_TRIVIA_API_URL}.php?amount=${numOfQuestions}&difficulty=${difficulty}`;
+    } else {
+        const categoryID = category.category.id;
+        return `${BASE_TRIVIA_API_URL}.php?amount=${numOfQuestions}&category=${categoryID}&difficulty=${difficulty}`;
+    }
 }
 
 

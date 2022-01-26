@@ -28,13 +28,16 @@ const loadCategories = async () => {
 loadCategories();
 
 const onStartClick = () => {
-    store.commit("setSelectedCategory", selectedCategory.value);
-    store.commit("setSelectedDifficulty", difficulty.value);
-    store.commit("setSelectedNumberOfQuestions", numberOfQuestions.value);
-    console.log("Values committed! Hopefully");
-    emit("onStartClicked");
-    store.commit("setUsername", username.value)
-    router.push('questions')
+    if (difficulty.value === "" || (numberOfQuestions.value <= 0 || numberOfQuestions.value > 50) || username.value === "") {
+        alert("Something is wrong here. Remember to choose a difficulty and request at least 1 question and no more than 50. Also, you have to set your username, so we can keep track of your highscore.");
+    } else {
+        store.commit("setSelectedCategory", selectedCategory.value);
+        store.commit("setSelectedDifficulty", difficulty.value);
+        store.commit("setSelectedNumberOfQuestions", numberOfQuestions.value);
+        emit("onStartClicked");
+        store.commit("setUsername", username.value);
+        router.push('questions');
+    }
 };
 
 
@@ -66,7 +69,11 @@ const onStartClick = () => {
             </label>
             <br />
             <select id="category-select" v-model="selectedCategory">
-                <option id="allCategories" value="">Questions from ALL Categories</option>
+                <option
+                    id="allCategories"
+                    value="0"
+                    selected="selected"
+                >Questions from ALL Categories</option>
                 <option
                     v-for="category of categoryNames"
                     :key="category.id"

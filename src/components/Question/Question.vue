@@ -2,6 +2,7 @@
 
 import { computed, ref, reactive, onMounted } from 'vue'
 
+
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 // contains a question component for each question in the current game
@@ -53,6 +54,8 @@ const updateQuestionAndAnswers = () => {
   for (let answerOption in currentQuestion.value.incorrect_answers) {
     answerOptions.push(currentQuestion.value.incorrect_answers[answerOption]);
   }
+  answerOptions = answerOptions.sort((a, b) => 0.5 - Math.random());
+
 }
 </script>
 
