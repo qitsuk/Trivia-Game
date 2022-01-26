@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router';
 
 const emit = defineEmits(["onStartClicked"]);
 
-const router = useRouter()
+const router = useRouter();
 const categoryNames = ref([]);
 
 const username = ref("");

@@ -1,7 +1,12 @@
 import { computed } from "vue";
 import { BASE_TRIVIA_API_URL } from ".";
 import store from "../store";
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
+const returnToStart = () => {
+    router.push("/");
+}
 
 const selectedDifficulty = computed(() => store.getters.getSelectedDifficulty);
 const selectedCategory = computed(() => store.getters.getSelectedCategory);
@@ -24,7 +29,10 @@ export async function getQuestions() {
     try {
         const response = await fetch(buildAPIURL());
         const result = await response.json();
-        if (response.ok) {
+        if (result.response_code === 1 && response.ok) {
+            console.log("The API responded with a code 1");
+            returnToStart();
+        } else if (result.reponse_code === 0 && response.ok) {
             return [null, result];
         } else {
             throw new Error(error);
@@ -33,9 +41,3 @@ export async function getQuestions() {
         return [error.message, null];
     }
 }
-// https://opentdb.com/api.php?amount=10&category=9&difficulty=easy
-
-
-// https://opentdb.com/api.php?amount=12&category=12&difficulty=normal
-
-// https://opentdb.com/api.php?amount=10&category=11&difficulty=medium
