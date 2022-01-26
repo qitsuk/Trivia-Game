@@ -3,9 +3,6 @@ import { ref } from "vue";
 import { apiUserGet } from "../api/users";
 import StartScreenForm from "../components/StartScreen/StartScreenForm.vue";
 import { useRouter } from "vue-router";
-const username = ref("") //will refer to an input field
-let user = {}
-
 
 //SETUP FOR A NEW GAME:
 // input field for username
@@ -18,11 +15,7 @@ const userName = ref("");
 const difficulty = ref("");
 const numberOfQuestions = ref("");
 
-const getUser = async () => { 
-  const data = await apiUserGet(userName.value) 
-  user = data;
-  console.log(user);
-}
+
 
 const handleOnStartClicked = () => {
   router.push("questions");
